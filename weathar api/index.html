@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #1E1E2F;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .weather-app {
+            width: 90%;
+            max-width: 400px;
+            background: #2A2A3B;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .location {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .temperature {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .description {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .forecast {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .forecast-item {
+            text-align: center;
+        }
+
+        .forecast-item p {
+            margin: 5px 0;
+        }
+
+        .forecast-item img {
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-app">
+        <div class="location">amreli</div>
+        <div class="temperature">23°C</div>
+        <div class="description">Cloudy</div>
+        <div class="forecast">
+            <div class="forecast-item">
+                <p>Sun</p>
+                <img src="https://via.placeholder.com/40" alt="Weather icon">
+                <p>25°C</p>
+            </div>
+            <div class="forecast-item">
+                <p>Mon</p> 
+                <img src="https://via.placeholder.com/40" alt="Weather icon">
+                <p>22°C</p>
+            </div>
+            <div class="forecast-item">
+                <p>Tue</p>
+                <img src="https://via.placeholder.com/40" alt="Weather icon">
+                <p>20°C</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Example JavaScript for dynamic weather data
+        let city="surat"
+        const apiKey = '094b1cddc40a67c426c17b4f56de2b4d';
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+        async function fetchWeather() {
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                console.log(data);
+                
+
+                document.querySelector('.location').textContent = data.name;
+                document.querySelector('.temperature').textContent = `${Math.round(data.main.temp)}°C`;
+                document.querySelector('.description').textContent = data.weather[0].description;
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+            }
+        }
+
+        fetchWeather();
+    </script>
+</body>
+</html>
